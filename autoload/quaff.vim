@@ -9,6 +9,10 @@ function! quaff#get_qf_file()
      return expand( l:partial_path )
  endfunction
 
+function! quaff#get_qf_escaped_file()
+     return escape( quaff#get_qf_file(), '%' ) 
+ endfunction
+
  function! quaff#ensure_file()
     let l:path = quaff#get_qf_file()
     if empty( glob(l:path) )
@@ -17,21 +21,23 @@ function! quaff#get_qf_file()
  endfunction
 
 function! quaff#load_qf()
-    let l:compiler = b:current_compiler
-    compiler quickfix
-    let l:path = quaff#get_qf_file()
-    let l:escaped_path = escape( l:path, '%' )
+    let l:escaped_path = quaff#get_qf_escaped_file()
     call quaff#ensure_file()
-    execute 'cfile ' . l:escaped_path
+    if exists('b:current_compiler')
+        let l:compiler = b:current_compiler
+    endif
+    compiler quickfix
+    silent execute 'cfile ' . l:escaped_path
     copen
-    setlocal filetype=qf.quaff
     execute 'write! ' . l:escaped_path
-    if ! empty(l:compiler)
+    setlocal filetype=qf.quaff
+    " restore if it was set
+    if exists('l:compiler')
         execute 'compiler ' . l:compiler
     endif
 endfunction
 
-function quaff#add_note(note)
+function! quaff#add_note(note)
   let l:entry = {}
   " may need expand() here.
   let l:entry['filename'] = bufname('%')
@@ -39,7 +45,9 @@ function quaff#add_note(note)
   let l:entry['col'] = col('.')
   let l:entry['vcol'] = ''
   let l:entry['text'] = a:note
-  let l:entry['type'] = 'E'
   call setqflist([l:entry], 'a')
+  copen
+  write!
+  wincmd w
 endfunction
 
