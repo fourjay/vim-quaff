@@ -5,7 +5,7 @@ function! quaff#get_stringpath()
 endfunction
 
 function! quaff#get_qf_file()
-     let l:partial_path = g:quaff_store_path . '/' . quaff#get_stringpath()
+     let l:partial_path = g:quaff_store_path . '/' . quaff#get_stringpath() . '.qf'
      return expand( l:partial_path )
  endfunction
 
