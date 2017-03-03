@@ -35,6 +35,7 @@ function! quaff#load_qf()
     if exists('l:compiler')
         execute 'compiler ' . l:compiler
     endif
+    wincmd w
 endfunction
 
 function! quaff#add_note(note)
@@ -51,3 +52,7 @@ function! quaff#add_note(note)
   wincmd w
 endfunction
 
+" Jump to 'editable' section
+function! quaff#jump_to_note()
+    call search('| \zs[^|]*', 'c')
+endfunction
