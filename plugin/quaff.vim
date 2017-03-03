@@ -1,1 +1,1 @@
-let g:qauff_store_path = "$HOME/tmp/.vim/qf"
+let g:quaff_store_path = '~/tmp/.vim/qf'
