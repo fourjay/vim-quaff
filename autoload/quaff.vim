@@ -31,3 +31,15 @@ function! quaff#load_qf()
     endif
 endfunction
 
+function quaff#add_note(note)
+  let l:entry = {}
+  " may need expand() here.
+  let l:entry['filename'] = bufname('%')
+  let l:entry['lnum'] = line('.')
+  let l:entry['col'] = col('.')
+  let l:entry['vcol'] = ''
+  let l:entry['text'] = a:note
+  let l:entry['type'] = 'E'
+  call setqflist([l:entry], 'a')
+endfunction
+
