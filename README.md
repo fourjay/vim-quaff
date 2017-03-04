@@ -1,5 +1,4 @@
 # vim-quaff
-
 Use (abuse) quickfix to keep file level notes
 
 This is inspired by qfedit, QFV. CodeReview.vim and a serveral other editable QuickFix utilities.
