@@ -58,14 +58,15 @@ function! quaff#make_note(note)
 endfunction
 
 function! quaff#add_note()
-    echom 'got called'
     if ! quaff#exists()
         call quaff#load()
     endif
-    call quaff#make_note('ADDNOTE')
+    call quaff#make_note('ADD_NOTE')
     call quaff#go_to()
-    " write!
-    " wincmd w
+    call search('ADD_NOTE', '')
+    resize +1
+    normal viw
+    call feedkeys("\<C-G>")
 endfunction
 
 function! quaff#exists()
