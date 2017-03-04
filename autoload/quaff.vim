@@ -33,8 +33,10 @@ function! quaff#load()
     compiler quickfix
     silent execute 'cfile ' . l:escaped_path
     copen
+    setlocal fileype=qf.quaff
     execute 'write! ' . l:escaped_path
     setlocal filetype=qf.quaff
+    setlocal modifiable
     " restore if it was set
     if exists('l:compiler')
         execute 'compiler ' . l:compiler
@@ -43,7 +45,7 @@ function! quaff#load()
 endfunction
 
 function! quaff#make_note(note)
-    if ! quaff#exists
+    if ! quaff#exists()
         call quaff#load()
     endif
     let l:entry = {}
@@ -54,14 +56,20 @@ function! quaff#make_note(note)
     let l:entry['vcol'] = ''
     let l:entry['text'] = a:note
     call setqflist([l:entry], 'a')
-    copen
-    write!
-    wincmd w
 endfunction
 
-function! quaff#add_note(note)
-    call quaff#make_note('')
-
+function! quaff#add_note()
+    echom 'got called'
+    if ! quaff#exists()
+        call quaff#load()
+    endif
+    call quaff#make_note('ADDNOTE')
+    copen
+    call search('ADDNOTE', '')
+    normal gv
+    <C-G>
+    " write!
+    " wincmd w
 endfunction
 
 function! quaff#exists()
@@ -81,6 +89,16 @@ function! quaff#go_to()
         return
     endif
     let l:qf_buf = bufnr( expand('%:t') . '.qf' )
+    execute l:qf_buf . 'wincmd w'
+endfunction
+
+function! quaff#go_to_main()
+    if ! exists('b:is_quaff')
+        return
+    endif
+    let l:qf_name = substitute(expand('%:t'), '.*%', '', '')
+    let l:main_buf = substitute( l:qf_name, '.qf$', '', '')
+    let l:qf_buf = bufnr( l:main_buf . '$' )
     execute l:qf_buf . 'wincmd w'
 endfunction
 
