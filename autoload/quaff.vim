@@ -33,9 +33,8 @@ function! quaff#load()
     compiler quickfix
     silent execute 'cfile ' . l:escaped_path
     copen
-    setlocal fileype=qf.quaff
+    setlocal filetype+=.quaff
     execute 'write! ' . l:escaped_path
-    setlocal filetype=qf.quaff
     setlocal modifiable
     " restore if it was set
     if exists('l:compiler')
@@ -64,10 +63,7 @@ function! quaff#add_note()
         call quaff#load()
     endif
     call quaff#make_note('ADDNOTE')
-    copen
-    call search('ADDNOTE', '')
-    normal gv
-    <C-G>
+    call quaff#go_to()
     " write!
     " wincmd w
 endfunction
