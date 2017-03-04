@@ -20,7 +20,11 @@ function! quaff#get_qf_escaped_file()
     endif
  endfunction
 
-function! quaff#load_qf()
+function! quaff#load()
+    if quaff#exists()
+        echom 'exists'
+        return
+    endif
     let l:escaped_path = quaff#get_qf_escaped_file()
     call quaff#ensure_file()
     if exists('b:current_compiler')
@@ -38,18 +42,46 @@ function! quaff#load_qf()
     wincmd w
 endfunction
 
+function! quaff#make_note(note)
+    if ! quaff#exists
+        call quaff#load()
+    endif
+    let l:entry = {}
+    " may need expand() here.
+    let l:entry['filename'] = bufname('%')
+    let l:entry['lnum'] = line('.')
+    let l:entry['col'] = col('.')
+    let l:entry['vcol'] = ''
+    let l:entry['text'] = a:note
+    call setqflist([l:entry], 'a')
+    copen
+    write!
+    wincmd w
+endfunction
+
 function! quaff#add_note(note)
-  let l:entry = {}
-  " may need expand() here.
-  let l:entry['filename'] = bufname('%')
-  let l:entry['lnum'] = line('.')
-  let l:entry['col'] = col('.')
-  let l:entry['vcol'] = ''
-  let l:entry['text'] = a:note
-  call setqflist([l:entry], 'a')
-  copen
-  write!
-  wincmd w
+    call quaff#make_note('')
+
+endfunction
+
+function! quaff#exists()
+    if quaff#nr() == -1
+        return
+    else
+        return 1
+    endif
+endfunction
+
+function! quaff#nr()
+    return bufnr( expand('%:t') . '.qf' )
+endfunction
+
+function! quaff#go_to()
+    if exists('b:is_quaff')
+        return
+    endif
+    let l:qf_buf = bufnr( expand('%:t') . '.qf' )
+    execute l:qf_buf . 'wincmd w'
 endfunction
 
 " Jump to 'editable' section
