@@ -65,8 +65,8 @@ function! quaff#add_note()
     call quaff#go_to()
     call search('ADD_NOTE', '')
     resize +1
-    normal zb
-    normal viw
+    normal! zb
+    normal! viw
     call feedkeys("\<C-G>")
 endfunction
 
