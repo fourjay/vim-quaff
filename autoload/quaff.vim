@@ -1,3 +1,17 @@
+let s:autoload_file_path = expand('<sfile>')
+
+function! quaff#get_script_base()
+    if exists('g:quaff_store_path')
+        if exists(glob('g:quaff_store_path'))
+            return g:quaff_store_path
+        endif
+    else
+        echoerr g:quaff_store_path . ' does not appear to be valid, using default'
+    endif
+    let l:base = substitute( s:autoload_file_path, 'autoload/quaff.vim', '', '')
+    return l:base
+endfunction
+
 function! quaff#get_stringpath()
     let l:actual_path = expand('%:p')
     let l:marshalled_path = substitute( l:actual_path, '[/\\]', '%', 'g')
