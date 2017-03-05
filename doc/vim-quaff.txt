@@ -1,0 +1,26 @@
+*quaff* QF file based annotater                    *vim-quaff.txt*
+
+VIM-QUAFF
+
+==============================================================================
+CONTENTS                                           *quaff-contents*
+
+   1. INTRODUCTION                                      |quaff-intro|
+   2. COMMANDS                                       |quaff-commands|
+   2. CONFIGURATION                             |quaff-configuration|
+
+==============================================================================
+1. INTRODUCTION                                           *quaff-intro*
+
+Annotate files with QuickFix lists is a persistent fashion.
+
+==============================================================================
+2. COMMANDS                                            *quaff-commands*
+
+*<Plug>QuaffNote* (Default mapping *m;* )
+
+Mark cursor position in a persistant quickfix list entry and record a comment
+
+
+==============================================================================
+3. CONFIGURATION                                  *quaff-configuration*
