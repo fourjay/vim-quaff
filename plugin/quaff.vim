@@ -1,8 +1,4 @@
-command! QQ call quaff#load()
-command! Qq call quaff#load()
-
-command! QN call quaff#load()
-command! Qn call quaff#add_note()
+command! Qfopen call quaff#load()
 
 nnoremap <Plug>QuaffNote :call quaff#add_note()<Cr>
 if ! hasmapto('<Plug>QuaffNote')
