@@ -62,6 +62,7 @@ function! quaff#load()
     setlocal filetype+=.quaff
     execute 'write! ' . l:escaped_path
     setlocal modifiable
+    " cleanup cfile artifacts
     global/^||[ |]*$/d
     " restore if it was set
     if exists('l:compiler')
