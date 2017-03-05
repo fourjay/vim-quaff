@@ -1,5 +1,3 @@
-let g:quaff_store_path = '~/tmp/.vim/qf'
-
 command! QQ call quaff#load()
 command! Qq call quaff#load()
 
