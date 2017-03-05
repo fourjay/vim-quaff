@@ -16,9 +16,10 @@ the core technique.
 # Usage
 
 ``<Plug>QuaffNote`` (mapped by default to ``m;``) 
-1) open an editable qf window with a semi-pemanent annotation list
-2) Be ready for you to type one line of annotation
-3) Return to your main buffer
+
+1. open an editable qf window with a semi-pemanent annotation list
+2. Be ready for you to type one line of annotation
+3. Return to your main buffer
 
 ``Quaffopen`` will load the associated QuickFix annotation list
 
