@@ -13,6 +13,17 @@ the core technique.
 * Automatic storage persistance.
 * Extends existing vim rather then implementing a separate layer
 
+# Usage
+
+``<Plug>QuaffNote`` (mapped by default to ``m;``) 
+1) open an editable qf window with a semi-pemanent annotation list
+2) Be ready for you to type one line of annotation
+3) Return to your main buffer
+
+``Quaffopen`` will load the associated QuickFix annotation list
+
+# Rational
+
 This plugin focuses on the simple use case of allowing ad-hoc quickfix lists.
 It (minimally) extends vim's quickfix list's presentation format as a natural
 mark listing format. Rather then editing in a separate (and third) micro
