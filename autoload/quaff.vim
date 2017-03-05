@@ -1,15 +1,26 @@
 let s:autoload_file_path = expand('<sfile>')
-
 function! quaff#get_script_base()
     if exists('g:quaff_store_path')
         if exists(glob('g:quaff_store_path'))
             return g:quaff_store_path
+        else
+            echoerr g:quaff_store_path . ' does not appear to be valid, using default'
         endif
-    else
-        echoerr g:quaff_store_path . ' does not appear to be valid, using default'
     endif
     let l:base = substitute( s:autoload_file_path, 'autoload/quaff.vim', '', '')
     return l:base
+endfunction
+
+function! quaff#ensure_dir()
+    if empty(glob( quaff#get_script_base() ))
+        echoerr 'quaff script seems deleted'
+        return
+    endif
+    let l:dir = quaff#get_script_base() . 'annotations'
+    if empty(glob( quaff#get_script_base() . 'annotations' ))
+        echo 'making annotations directory'
+        call mkdir( l:dir )
+    endif
 endfunction
 
 function! quaff#get_stringpath()
@@ -19,8 +30,9 @@ function! quaff#get_stringpath()
 endfunction
 
 function! quaff#get_qf_file()
-     let l:partial_path = g:quaff_store_path . '/' . quaff#get_stringpath() . '.qf'
-     return expand( l:partial_path )
+    call quaff#ensure_dir()
+    let l:partial_path = quaff#get_script_base() . 'annotations/' . quaff#get_stringpath() . '.qf'
+    return expand( l:partial_path )
  endfunction
 
 function! quaff#get_qf_escaped_file()
