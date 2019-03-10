@@ -57,7 +57,7 @@ function! quaff#load()
         let l:compiler = b:current_compiler
     endif
     compiler quickfix
-    silent! execute 'cgetfile ' . l:escaped_path
+    silent! execute 'cfile ' . l:escaped_path
     copen
     setlocal filetype+=.quaff
     execute 'update! ' . l:escaped_path
@@ -94,6 +94,7 @@ function! quaff#add_note()
     call search('ADD_NOTE', '')
     resize +1
     normal! zb
+    setlocal modifiable
     normal! viw
     call feedkeys("\<C-G>")
 endfunction
