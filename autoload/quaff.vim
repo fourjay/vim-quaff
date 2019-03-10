@@ -57,13 +57,13 @@ function! quaff#load()
         let l:compiler = b:current_compiler
     endif
     compiler quickfix
-    silent execute 'cfile ' . l:escaped_path
+    silent! execute 'cgetfile ' . l:escaped_path
     copen
     setlocal filetype+=.quaff
-    execute 'write! ' . l:escaped_path
+    execute 'update! ' . l:escaped_path
     setlocal modifiable
     " cleanup cfile artifacts
-    global/^||[ |]*$/d
+    silent global/^||[ |]*$/d
     " restore if it was set
     if exists('l:compiler')
         execute 'compiler ' . l:compiler
@@ -115,6 +115,9 @@ function! quaff#go_to()
         return
     endif
     let l:qf_buf = bufnr( expand('%:t') . '.qf' )
+    if l:qf_buf == -1
+        let l:qf_buf = bufnr( '[Quickfix List]')
+    endif
     execute l:qf_buf . 'wincmd w'
 endfunction
 
