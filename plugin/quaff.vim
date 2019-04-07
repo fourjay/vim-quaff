@@ -6,7 +6,7 @@ if exists('g:did_quaff')
 endif
 let g:did_quaff = '1'
 let s:save_cpo = &cpoptions
-set compatible&vim
+set cpoptions&vim
 
 command! Quaffopen call quaff#load()
 
